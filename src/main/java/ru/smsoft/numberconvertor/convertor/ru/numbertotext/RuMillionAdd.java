@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public class RuMillionAdd implements IConvertNumber {
 
     public String NumberToString(long number, JpaRepository DictionaryRepo) {
-        return RuRangeConvert.NumberToString(number,DictionaryRepo,"million");
+        return RuRangeConvert.NumberToString(number, DictionaryRepo, "million");
     }
 }
 

@@ -18,7 +18,7 @@ public class RuRangeConvert {
                 case 1:
                     if (isTeen) {
                         if (numberToConvert == 0) {
-                            returnText.append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add"+type+"2"));
+                            returnText.append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add" + type + "2"));
                             break;
                         }
                         if (numberToConvert == 1) {
@@ -32,21 +32,21 @@ public class RuRangeConvert {
                             returnText
                                     .append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "addfirst"))
                                     .append(" ")
-                                    .append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add"+type));
+                                    .append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add" + type));
                             break;
                         }
                         if (numberToConvert >= 3 && numberToConvert <= 4) {
                             returnText
                                     .append(new RuFirstsAdd().NumberToString(numberToConvert, ruDictionaryRepo))
                                     .append(" ")
-                                    .append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add"+type));
+                                    .append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add" + type));
                             break;
                         }
                         if (numberToConvert >= 5) {
                             returnText
                                     .append(new RuFirstsAdd().NumberToString(numberToConvert, ruDictionaryRepo))
                                     .append(" ")
-                                    .append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add"+type+"2"));
+                                    .append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add" + type + "2"));
                             break;
                         }
                     }
@@ -60,7 +60,7 @@ public class RuRangeConvert {
                         isTeen = false;
                         returnText.append(new RuTeensAdd().NumberToString(Character.getNumericValue(numberString.charAt(numLenght - 1)), ruDictionaryRepo))
                                 .append(" ")
-                                .append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add"+type+"2"));
+                                .append(ruDictionaryRepo.findByIntnumberAndNumbertype(1, "add" + type + "2"));
                     } else {
                         returnText.append(new RuTensAdd().NumberToString(numberToConvert, ruDictionaryRepo))
                                 .append(" ");

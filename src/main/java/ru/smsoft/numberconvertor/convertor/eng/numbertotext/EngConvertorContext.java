@@ -13,7 +13,9 @@ public class EngConvertorContext {
     public String DoConvertToText(long num, JpaRepository DictionaryRepo) {
         if (_strategy == null)
             return "";
+
         String convertedNumber = this._strategy.NumberToString(num, DictionaryRepo);
+
         if (convertedNumber != null && !convertedNumber.equals("")) {
             return convertedNumber + " ";
         }

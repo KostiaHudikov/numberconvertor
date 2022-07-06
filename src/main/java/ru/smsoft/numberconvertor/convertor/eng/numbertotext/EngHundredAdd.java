@@ -10,7 +10,9 @@ public class EngHundredAdd implements IConvertNumber {
             return "";
         }
         EngDictionaryRepos engDictionaryRepo = (EngDictionaryRepos) DictionaryRepo;
-        String convertedNumber =  new EngFirstAdd().NumberToString(num, engDictionaryRepo) + " " + engDictionaryRepo.findByIntnumberAndNumbertype(1, "hundred");
+        String convertedNumber = new EngFirstAdd().NumberToString(num, engDictionaryRepo)
+                + " "
+                + engDictionaryRepo.findByIntnumberAndNumbertype(1, "hundred");
         if (convertedNumber != null) {
             return convertedNumber;
         }

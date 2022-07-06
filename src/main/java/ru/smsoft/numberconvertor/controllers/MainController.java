@@ -51,33 +51,29 @@ public class MainController {
         if (dictionaryRepo == null) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "not a valid language");
         }
-
-
-        String outer_val = "";
-        if (type.equals("NumberToString")) {
-            try {
-                outer_val = languageChoose.DoConvertNumberToText(Long.parseLong(value), dictionaryRepo);
-            } catch (RuntimeException e) {
-                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid input number");
+        
+        String outerVal = "";
+        try {
+            if (type.equals("NumberToString")) {
+                outerVal = languageChoose.DoConvertNumberToText(Long.parseLong(value), dictionaryRepo);
+            } else if (type.equals("StringToNumber")) {
+                outerVal = String.valueOf(languageChoose.DoConvertTextToNumber(value, dictionaryRepo));
+            } else {
+                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid conversion type");
             }
-        } else if (type.equals("StringToNumber")) {
-            try {
-                outer_val = String.valueOf(languageChoose.DoConvertTextToNumber(value, dictionaryRepo));
-            } catch (RuntimeException e) {
-                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid input number");
-            }
-        } else {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid conversion type");
+        } catch (RuntimeException e) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid input number");
         }
 
         Date date = new Date();
         logsRepos.save(Logs.builder()
                 .login(principal.getName())
-                .type(type).innerVal(value)
-                .outerVal(outer_val)
+                .type(type)
+                .innerVal(value)
+                .outerVal(outerVal)
                 .date(date)
                 .build());
 
-        return outer_val;
+        return outerVal;
     }
 }

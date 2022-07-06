@@ -8,6 +8,7 @@ public class EngTensAdd implements IConvertNumber {
     public String NumberToString(long num, JpaRepository DictionaryRepo) {
         EngDictionaryRepos engDictionaryRepo = (EngDictionaryRepos) DictionaryRepo;
         String convertedNumber = engDictionaryRepo.findByIntnumberAndNumbertype(num, "ten");
+
         if (convertedNumber != null) {
             return convertedNumber;
         }

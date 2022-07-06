@@ -67,7 +67,7 @@ public class RuNumberConvertor implements ILanguageChoose {
             RuDictionaryRepos ruDictionaryRepo = (RuDictionaryRepos) DictionaryRepo;
 
             if (ruDictionaryRepo.findByStringnumber(textNumber) != 1000 || ruDictionaryRepo.findByStringnumber(textNumber) != 1000000 ||
-                    ruDictionaryRepo.findByStringnumber(textNumber) != 1000000 ||finalNumber == 0) {
+                    ruDictionaryRepo.findByStringnumber(textNumber) != 1000000 || finalNumber == 0) {
                 finalNumber += ruDictionaryRepo.findByStringnumber(textNumber);
             } else {
                 finalNumber *= ruDictionaryRepo.findByStringnumber(textNumber);
