@@ -64,3 +64,7 @@ INSERT INTO engdictionarycontainer(intnumber, stringnumber, fullnumber, numberty
 VALUES (1, 'hundred', 100, 'hundred');
 INSERT INTO engdictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
 VALUES (1, 'thousand', 1000, 'thousand');
+INSERT INTO engdictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
+VALUES (1, 'million', 1000000, 'million');
+INSERT INTO engdictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
+VALUES (1, 'billion', 1000000000, 'billion');

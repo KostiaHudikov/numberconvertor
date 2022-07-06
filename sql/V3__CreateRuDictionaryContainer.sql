@@ -88,3 +88,16 @@ INSERT INTO rudictionarycontainer(intnumber, stringnumber, fullnumber, numbertyp
 VALUES (1, 'тысячи', 1000, 'addthousand');
 INSERT INTO rudictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
 VALUES (1, 'тысяч', 1000, 'addthousand2');
+INSERT INTO rudictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
+VALUES (1, 'миллион', 1000000, 'million');
+INSERT INTO rudictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
+VALUES (1, 'миллиона', 1000000, 'addmillion');
+INSERT INTO rudictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
+VALUES (1, 'миллионов', 1000000, 'addmillion2');
+INSERT INTO rudictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
+VALUES (1, 'миллиард', 1000000000, 'billion');
+INSERT INTO rudictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
+VALUES (1, 'миллиарда', 1000000000, 'addbillion');
+INSERT INTO rudictionarycontainer(intnumber, stringnumber, fullnumber, numbertype)
+VALUES (1, 'миллиардов', 1000000000, 'addbillion2');
+

@@ -8,14 +8,16 @@
         <version>2.6.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+
+    <groupId>ru.smsoft</groupId>
     <artifactId>NumberConvertor</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>NumberConvertor</name>
-    <description>NumberConvertor</description>
+
     <properties>
         <java.version>18</java.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -75,13 +77,12 @@
         </dependency>
 
         <!--  security -->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
