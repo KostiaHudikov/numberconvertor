@@ -1,42 +1,76 @@
 package com.example.numberconvertor.controllers;
 
 
-import com.example.numberconvertor.Convertor.RU.NumberToText.RuFirstsAdd;
-import com.example.numberconvertor.repos.DictionaryRepo;
-import com.example.numberconvertor.Convertor.LanguageChooser.LanguageChooseContext;
-import com.example.numberconvertor.Convertor.RU.RuNumberConvertor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
+import com.example.numberconvertor.convertor.eng.EngNumberConvertor;
+import com.example.numberconvertor.domain.Logs;
+import com.example.numberconvertor.repos.EngDictionaryRepos;
+import com.example.numberconvertor.repos.LogsRepos;
+import com.example.numberconvertor.repos.RuDictionaryRepos;
+import com.example.numberconvertor.convertor.languagechooser.LanguageChooseContext;
+import com.example.numberconvertor.convertor.ru.RuNumberConvertor;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 
-@Controller
-@Validated
+import java.security.Principal;
+import java.util.Date;
+
+@RestController
+@RequiredArgsConstructor
+
 public class MainController {
 
-    @Autowired
-    private LanguageChooseContext languageChoose;
+    private final LogsRepos logsRepos;
 
-    @Autowired
-    DictionaryRepo dictionaryRepo;
+    private final RuDictionaryRepos ruDictionaryRepo;
 
-    @Autowired
-    RuFirstsAdd ruFirstsAdd;
+    private final EngDictionaryRepos engDictionaryRepo;
 
-    @GetMapping("/")
-    public String main() {
-        languageChoose.SetConvertToIntStrategy(new RuNumberConvertor());
-        languageChoose.DoConvertNumberToText(8);
-        return "login.html";
-    }
+    private final LanguageChooseContext languageChoose;
 
-    @GetMapping("/login")
-    public String main2() {return "login.html";
-    }
+    @GetMapping("/convert")
+    public String main(@RequestParam(name = "type") String type,
+                       @RequestParam(name = "value") String value,
+                       @RequestParam(name = "language", required = false) String lang,
+                       Principal principal) {
+        JpaRepository dictionaryRepo = null;
 
-    @GetMapping("/Convert")
-    public String main3() {
+        //Set language
+        if (lang.equals("") || lang.equals("ru")) {
+            languageChoose.SetConvertToIntStrategy(new RuNumberConvertor());
+            dictionaryRepo = ruDictionaryRepo;
+        }
+        if (lang.equals("eng")) {
+            languageChoose.SetConvertToIntStrategy(new EngNumberConvertor());
+            dictionaryRepo = engDictionaryRepo;
+        }
 
-        return "login.html";
+        if(dictionaryRepo == null){
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Need choose language ru or eng");
+        }
+
+
+        String outer_val = "";
+        if (type.equals("NumberToString")) {
+            outer_val = languageChoose.DoConvertNumberToText(Integer.parseInt(value), dictionaryRepo);
+        }
+        if (type.equals("StringToNumber")) {
+            outer_val = String.valueOf(languageChoose.DoConvertTextToNumber(value, dictionaryRepo));
+        }
+
+        Date date = new Date();
+        logsRepos.save(Logs.builder()
+                .login(principal.getName())
+                .type(type).innerVal(value)
+                .outerVal(outer_val)
+                .date(date)
+                .build());
+
+        return outer_val;
     }
 }
