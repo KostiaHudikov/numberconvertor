@@ -20,7 +20,6 @@ import java.util.Date;
 
 @RestController
 @RequiredArgsConstructor
-
 public class MainController {
 
     private final LogsRepos logsRepos;
