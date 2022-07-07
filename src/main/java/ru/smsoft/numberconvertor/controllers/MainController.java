@@ -51,19 +51,25 @@ public class MainController {
         if (dictionaryRepo == null) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "not a valid language");
         }
-        
+
         String outerVal = "";
-        try {
-            if (type.equals("NumberToString")) {
+
+        if (type.equals("NumberToString")) {
+            try {
                 outerVal = languageChoose.DoConvertNumberToText(Long.parseLong(value), dictionaryRepo);
-            } else if (type.equals("StringToNumber")) {
-                outerVal = String.valueOf(languageChoose.DoConvertTextToNumber(value, dictionaryRepo));
-            } else {
-                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid conversion type");
+            } catch (RuntimeException e) {
+                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid input number");
             }
-        } catch (RuntimeException e) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid input number");
+        } else if (type.equals("StringToNumber")) {
+            try {
+                outerVal = String.valueOf(languageChoose.DoConvertTextToNumber(value, dictionaryRepo));
+            } catch (RuntimeException e) {
+                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid input number");
+            }
+        } else {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "invalid conversion type");
         }
+
 
         Date date = new Date();
         logsRepos.save(Logs.builder()
