@@ -62,15 +62,22 @@ public class RuNumberConvertor implements ILanguageChoose {
 
     public long ConvertTextToNumber(String number, JpaRepository DictionaryRepo) {
         String[] numberList = number.split(" ");
+        RuDictionaryRepos ruDictionaryRepo = (RuDictionaryRepos) DictionaryRepo;
+
         long finalNumber = 0;
         for (String textNumber : numberList) {
-            RuDictionaryRepos ruDictionaryRepo = (RuDictionaryRepos) DictionaryRepo;
+            boolean isMultiplication=false;
+            long convertedNumber=ruDictionaryRepo.findByStringnumber(textNumber);
 
-            if (ruDictionaryRepo.findByStringnumber(textNumber) != 1000 || ruDictionaryRepo.findByStringnumber(textNumber) != 1000000 ||
-                    ruDictionaryRepo.findByStringnumber(textNumber) != 1000000 || finalNumber == 0) {
-                finalNumber += ruDictionaryRepo.findByStringnumber(textNumber);
+            if(convertedNumber == 1000 || convertedNumber == 1000000 ||
+                    convertedNumber == 1000000000){
+                isMultiplication= true;
+            }
+
+            if ( isMultiplication && finalNumber != 0) {
+                finalNumber *= convertedNumber;
             } else {
-                finalNumber *= ruDictionaryRepo.findByStringnumber(textNumber);
+                finalNumber += convertedNumber;
             }
         }
         return finalNumber;
